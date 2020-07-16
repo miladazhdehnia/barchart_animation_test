@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css">
+    <title>animation test</title>
+    <style>
+        body {
+            background-color: #797879;
+        }
+
+        .container {
+            margin-left: auto;
+            margin-right: auto;
+            width: 80%;
+            max-width: 600px;
+            height: 400px;
+            background-color: #6d6c6d;
+            border-radius: 15px;
+            border: white solid 1px;
+            padding: 2rem 2rem 3rem 2rem;
+        }
+
+        canvas {
+            /* background-color: #6d6c6d; */
+            /* border-radius: 10%; */
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div style="display: flex;width: 100%;flex-direction: row;justify-content: space-between;padding-bottom: 1rem;">
+            <div style="color: white;">Users Overview</div>
+            <div style="color: white;display: flex;flex-direction: row;">
+                <div style="padding-right: 18px;">
+                    <div style="background-color: white;width: 10px; height: 5px;display: inline-block;"></div> Active
+                    Users
+                </div>
+                <div>
+                    <div style="background-color: white;width: 10px; height: 5px;display: inline-block;"></div>
+                    New Users
+                </div>
+            </div>
+        </div>
+        <canvas id="barchart" width="400" height="400" style="width: 400px;height: 400px;"></canvas>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+    <script>
+        let ctx = document.getElementById('barchart');
+        var gradient = ctx.getContext('2d').createLinearGradient(0, 0, 0, 400);
+        gradient.addColorStop(0, 'rgba(255, 255, 255,1)');
+        // gradient.addColorStop(0.5, 'rgba(255, 255, 255,1)');
+        gradient.addColorStop(0.8, 'rgba(255, 255, 255,1)');
+        gradient.addColorStop(1, '#6d6c6d');
+        var lineGradient = ctx.getContext('2d').createLinearGradient(0, 0, 0, 400);
+        lineGradient.addColorStop(1, 'rgba(255, 255, 255,1)');
+        // gradient.addColorStop(0.5, 'rgba(255, 255, 255,1)');
+        lineGradient.addColorStop(0, '#6d6c6d');
+
+        let myChart = new Chart(ctx, {
+            type: 'bar',
+            color: 'ffffff',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', "Aug", "Sep", "Oct", "Nov", "Dec"],
+                datasets: [{
+                        barThickness: 5,
+                        label: false,
+                        borderSkipped: 'bottom',
+                        data: [12, 19, 3, 5, 2, 3, 7, 19, 15, 4, 16, 4],
+                        backgroundColor: gradient
+                    },
+                    {
+                        barThickness: 5,
+                        label: '# of Votes',
+                        data: [8, 17, 11, 8, 3, 12, 15, 8, 5, 4, 19, 3],
+                        backgroundColor: gradient
+                    }
+                ]
+            },
+            options: {
+                animation: {
+                    duration: 3000
+                },
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: false,
+                scales: {
+                    yAxes: [{
+                        gridLines: {
+                            color: lineGradient,
+                            z: 0,
+                            borderDash: [1, 1],
+                            drawBorder: true,
+                            drawTicks: false
+                        },
+                        ticks: {
+                            beginAtZero: true,
+                            display: true,
+                            padding: 10,
+                            fontColor: '#ffffff'
+                        }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            display: true,
+                            padding: 10,
+                            fontColor: '#ffffff'
+
+                        },
+                        gridLines: {
+                            display: true,
+                            drawBorder: true,
+                            drawTicks: false,
+                            drawOnChartArea: false,
+                            color: lineGradient,
+
+                        }
+                    }]
+                }
+            }
+        });
+        myChart.defaults.global.animation = {
+            duration: 40000
+        }
+    </script>
+</body>
+
+</html>
